@@ -1,2 +1,2 @@
 # sql-cookbook
-sql code snippets for reusability.
+Commonly usede sql code snippets for reusability.

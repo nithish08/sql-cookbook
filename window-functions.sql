@@ -76,3 +76,27 @@ from
 where cls=max_cls
 
 
+# more joins
+
+select distinct origin, dest, first_value(cost) over (partition by origin, dest order by cost ,stops) as cost,
+ first_value(stops) over (partition by origin, dest order by cost ,stops) as stops
+from
+(
+select a1.origin, b1.dest, (a1.cost + b1.cost) as cost, 2 as stops from
+trips a1 join
+(select a.origin, b.dest,(a.cost+b.cost ) as cost from 
+trips a join trips b on a.dest=b.origin) b1
+on a1.dest = b1.origin
+
+union
+
+select a.origin, b.dest,a.cost+b.cost as cost, 1 as stops from 
+trips a join trips b on a.dest=b.origin
+
+union 
+
+select *,0 as stops from trips ) joined_table
+
+select * from trips
+
+

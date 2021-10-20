@@ -1,4 +1,5 @@
 # CASE 
+# example from here https://www.hackerrank.com/challenges/binary-search-tree-1/forum
 
 SELECT CASE
 	WHEN P IS NULL THEN CONCAT(N, ' Root')

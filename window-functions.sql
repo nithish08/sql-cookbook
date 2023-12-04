@@ -100,3 +100,10 @@ select *,0 as stops from trips ) joined_table
 select * from trips
 
 
+--  calculating percentile values using window function
+
+--  here 95th percentile is calculated
+SELECT * FROM 
+(SELECT t.*,  @row_num :=@row_num + 1 AS row_num FROM YOUR_TABLE t, 
+    (SELECT @row_num:=0) counter ORDER BY YOUR_VALUE_COLUMN) 
+temp WHERE temp.row_num = ROUND (.95* @row_num); 
